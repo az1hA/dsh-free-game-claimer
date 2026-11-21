@@ -1,0 +1,6 @@
+# dsh-free-games-claimer 的 Cordis 补丁：
+# 插件注册名必须是 free-games-claimer —— 客户端 loader、凭据 scope 和设置页 id 都依赖它。
+- insert:
+    - id: free-games-claimer
+      name: dsh-free-games-claimer
+      config: {}

@@ -1,0 +1,45 @@
+{
+  "name": "dsh-free-games-claimer",
+  "version": "0.2.4",
+  "private": true,
+  "type": "module",
+  "description": "Epic / GOG / Steam 限时免费游戏检查与自动入库（喜加一）",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "lib",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "free-games",
+    "epic",
+    "gog",
+    "steam"
+  ],
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-settings-plugins"
+      ]
+    }
+  },
+  "dependencies": {
+    "playwright-core": "^1.65.1"
+  }
+}
