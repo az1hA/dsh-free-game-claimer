@@ -1,5 +1,8 @@
 # 喜加一 · dsh-free-games-claimer
 
+[![CI](https://github.com/az1hA/dsh-free-game-claimer/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/az1hA/dsh-free-game-claimer/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/az1hA/dsh-free-game-claimer?display_name=tag)](https://github.com/az1hA/dsh-free-game-claimer/releases)
+
 在 DeepSeek Harness 的「设置 → 喜加一」里管理 Epic Games、GOG、Steam 三个平台的限时免费游戏。
 
 - 默认每天检查一轮，间隔可改（15 分钟 ~ 7 天）。
@@ -31,13 +34,43 @@
 
 每个平台使用独立浏览器 profile：`$DSH_HOME/free-games-claimer/browser/<platform>/`。Cookie 只通过 `ctx.credentials.modifyRecord` 写入 DSH 凭据库。
 
-## 开发 / 安装
+## 安装
+
+从 [Releases](https://github.com/az1hA/dsh-free-game-claimer/releases) 下载 `dsh-free-game-claimer-*.tgz`，然后：
+
+```text
+plugin_manager action=install_bundle target=<tgz 的绝对路径>
+```
+
+也可以直接用本地目录安装（链接 checkout）：
 
 ```text
 plugin_manager action=install_bundle target=<此目录的绝对路径>
 ```
 
-本地目录安装是链接 checkout。插件依赖 `playwright-core`，登录和 Epic 自动领取都复用系统 Chrome/Edge，不需要额外下载浏览器。
+插件依赖 `playwright-core`，登录和 Epic 自动领取都复用系统 Chrome/Edge，不需要额外下载浏览器。
+
+## 开发
+
+```bash
+npm ci
+npm run check
+npm pack
+```
+
+`npm run check` 会校验 `package.json`、`cordis.patch.yml`、导出、依赖和所有 JS 语法；CI 在 Ubuntu（Node 22 / 24）和 Windows（Node 22）上跑同一套检查。
+
+发布新版本：
+
+```bash
+npm version patch --no-git-tag-version
+git add package.json package-lock.json
+git commit -m "chore: release v0.2.5"
+git tag v0.2.5
+git push origin main --tags
+```
+
+推送 `v*` tag 会触发 Release workflow：重新检查、`npm pack`，并把 tgz 作为 GitHub Release 附件。
 
 数据目录：`$DSH_HOME/free-games-claimer/`（`state.json`、`duty.log`、`browser/<platform>/`）。
 
@@ -49,3 +82,7 @@ plugin_manager action=install_bundle target=<此目录的绝对路径>
 - Epic 页面显示「In Library」时会单独标成「在库中」，不计入入库数，也不会再标「待手动」。
 - 任何平台都不保证 100% 自动；失败时保留商店链接，方便手动完成。
 - 本插件不会进行任何支付操作，只针对 0 元入库。
+
+## License
+
+MIT

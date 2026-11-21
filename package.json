@@ -15,7 +15,8 @@
     "client.js",
     "lib",
     "cordis.patch.yml",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "keywords": [
     "dsh",
@@ -26,6 +27,21 @@
     "steam"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/az1hA/dsh-free-game-claimer.git"
+  },
+  "homepage": "https://github.com/az1hA/dsh-free-game-claimer",
+  "bugs": {
+    "url": "https://github.com/az1hA/dsh-free-game-claimer/issues"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "prepack": "npm run check"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
